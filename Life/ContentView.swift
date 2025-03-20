@@ -103,8 +103,7 @@ struct ContentView: View {
         content.body = "Stay hydrated! Time to drink some water."
         content.sound = .default
 
-//        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 2 * 60 * 60, repeats: true) // Every 2 hours
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 180, repeats: true) // Once afte 10 secs
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 2 * 60 * 60, repeats: true) // Once afte 10 secs
         let request = UNNotificationRequest(identifier: "waterReminder", content: content, trigger: trigger)
 
         UNUserNotificationCenter.current().add(request) { error in
@@ -121,6 +120,16 @@ struct ContentView: View {
         formatter.timeZone = TimeZone.current  // Uses the device's timezone (UK if set)
 
         let today = formatter.string(from: Date())
+        
+        let lastAppVersion = UserDefaults.standard.string(forKey: "lastAppVersion") ?? "0"
+        let currentAppVersion = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "0"
+        
+        // This reset the counter when i do a new build to iphone
+        if lastAppVersion != currentAppVersion {
+            waterIntake = 0
+            lastUpdatedDate = today
+            UserDefaults.standard.set(currentAppVersion, forKey: "lastAppVersion")
+        }
 
         // 🛠️ FOR TESTING: Uncomment the line below to always reset on app launch
 //         waterIntake = 0
