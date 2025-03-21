@@ -1,28 +1,31 @@
 import SwiftUI
-import UserNotifications
+import AVFoundation
 
 struct ContentView: View {
     @AppStorage("waterIntake") private var waterIntake = 0
     @AppStorage("lastUpdatedDate") private var lastUpdatedDate = ""
 
-    let dailyGoal = 10  // Ring will fill up at 10 cups
+    @State private var isShowingCamera = false
+    @State private var showErrorAlert = false  // ❌ AI Failed Alert
+
+    let dailyGoal = 10
 
     var progress: Double {
-        return min(Double(waterIntake % dailyGoal) / Double(dailyGoal), 1.0) // Resets after 10 cups
+        return min(Double(waterIntake % dailyGoal) / Double(dailyGoal), 1.0)
     }
 
     var body: some View {
         ZStack {
-            // Background Gradient
+            // Gradient Background
             LinearGradient(gradient: Gradient(colors: [Color.blue.opacity(0.6), Color.cyan.opacity(0.8)]),
                            startPoint: .topLeading,
                            endPoint: .bottomTrailing)
                 .edgesIgnoringSafeArea(.all)
 
             VStack {
-                Spacer()  // Pushes content to the center
+                Spacer()
 
-                // Circular Progress Ring with Tap Gesture
+                // Water Droplet Button + Progress Ring
                 ZStack {
                     Circle()
                         .stroke(lineWidth: 20)
@@ -38,82 +41,49 @@ struct ContentView: View {
                         .rotationEffect(Angle(degrees: -90))
                         .animation(.easeInOut, value: progress)
 
-                    VStack {
-                        Image(systemName: "drop.fill")
-                            .resizable()
-                            .frame(width: 60, height: 80)
-                            .foregroundColor(.blue)
-                            .padding(.bottom, 10)
-                    }
+                    Image(systemName: "drop.fill")  // ✅ Water droplet icon
+                        .resizable()
+                        .frame(width: 60, height: 80)
+                        .foregroundColor(.blue)
+                        .padding(.bottom, 10)
                 }
                 .frame(width: 250, height: 250)
                 .onTapGesture {
-                    logWaterIntake()
+                    isShowingCamera = true
                 }
 
-                // Display only the number of cups
+                // Display Number of Cups Logged
                 Text("\(waterIntake)")
                     .font(.system(size: 60, weight: .bold, design: .rounded))
                     .foregroundColor(.white)
                     .padding(.top, 10)
 
-                Spacer()  // Balances spacing
+                Spacer()
             }
             .onAppear {
-                requestNotificationPermission()
-                scheduleWaterReminder()
                 checkForDailyReset()
             }
-        }
-    }
-
-    // Log Water Intake
-    func logWaterIntake() {
-        withAnimation {
-            waterIntake += 1
-        }
-        provideHapticFeedback()
-    }
-
-    // Haptic feedback when tapping
-    func provideHapticFeedback() {
-        #if canImport(UIKit)
-        let generator = UIImpactFeedbackGenerator(style: .medium)
-        generator.prepare()
-        generator.impactOccurred()
-        #endif
-    }
-
-    // Request permission for notifications
-    func requestNotificationPermission() {
-        let center = UNUserNotificationCenter.current()
-        center.requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
-            if granted {
-                print("Notifications allowed")
-            } else {
-                print("Notifications denied")
+            .sheet(isPresented: $isShowingCamera) {
+                CameraView(isPresented: $isShowingCamera, onPhotoTaken: logWaterIntake)
+            }
+            .alert(isPresented: $showErrorAlert) {
+                Alert(title: Text("Water Intake Not Logged"), message: Text("Please stop trying to fool me and just drink some water."), dismissButton: .default(Text("OK")))
             }
         }
     }
 
-    // Schedule notifications every 2 hours
-    func scheduleWaterReminder() {
-        let content = UNMutableNotificationContent()
-        content.title = "Drink Water 💧"
-        content.body = "Stay hydrated! Time to drink some water."
-        content.sound = .default
-
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 2 * 60 * 60, repeats: true) // Once afte 10 secs
-        let request = UNNotificationRequest(identifier: "waterReminder", content: content, trigger: trigger)
-
-        UNUserNotificationCenter.current().add(request) { error in
-            if let error = error {
-                print("Error scheduling notification: \(error)")
+    /// ✅ Logs water intake only if the AI detects drinking
+    func logWaterIntake(_ success: Bool) {
+        if success {
+            withAnimation {
+                waterIntake += 1
             }
+        } else {
+            showErrorAlert = true  // ❌ Show alert if AI fails
         }
     }
 
-    // Check if the day has changed and reset water intake
+    /// ✅ Resets daily intake at midnight (based on device timezone)
     func checkForDailyReset() {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
@@ -124,26 +94,27 @@ struct ContentView: View {
         let lastAppVersion = UserDefaults.standard.string(forKey: "lastAppVersion") ?? "0"
         let currentAppVersion = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "0"
         
-        // This reset the counter when i do a new build to iphone
+        // Debugging: print both versions to check if they are correct
+        print("lastAppVersion:", lastAppVersion, "currentAppVersion:", currentAppVersion)
+        
+        // This reset the counter when a new build is installed or app version changes
         if lastAppVersion != currentAppVersion {
+            print("App version has changed! Resetting water intake.")  // Added log to confirm the condition triggers
             waterIntake = 0
             lastUpdatedDate = today
             UserDefaults.standard.set(currentAppVersion, forKey: "lastAppVersion")
+        } else {
+            print("App version hasn't changed.") // Added log to check if the version comparison is correct
         }
 
         // 🛠️ FOR TESTING: Uncomment the line below to always reset on app launch
 //         waterIntake = 0
 
         if lastUpdatedDate != today {
+            print("New day detected! Resetting water intake.")
             waterIntake = 0
             lastUpdatedDate = today
         }
     }
 
-}
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
 }
