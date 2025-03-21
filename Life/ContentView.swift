@@ -6,7 +6,7 @@ struct ContentView: View {
     @AppStorage("lastUpdatedDate") private var lastUpdatedDate = ""
 
     @State private var isShowingCamera = false
-    @State private var showErrorAlert = false  // ❌ AI Failed Alert
+    @State private var showErrorAlert = false  // Show the error alert when no drinking is detected
 
     let dailyGoal = 10
 
@@ -41,7 +41,7 @@ struct ContentView: View {
                         .rotationEffect(Angle(degrees: -90))
                         .animation(.easeInOut, value: progress)
 
-                    Image(systemName: "drop.fill")  // ✅ Water droplet icon
+                    Image(systemName: "drop.fill")  // Water droplet icon
                         .resizable()
                         .frame(width: 60, height: 80)
                         .foregroundColor(.blue)
@@ -64,26 +64,31 @@ struct ContentView: View {
                 checkForDailyReset()
             }
             .sheet(isPresented: $isShowingCamera) {
-                CameraView(isPresented: $isShowingCamera, onPhotoTaken: logWaterIntake)
+                CameraView(isPresented: $isShowingCamera, showErrorAlert: $showErrorAlert, onPhotoTaken: logWaterIntake)
             }
+
             .alert(isPresented: $showErrorAlert) {
-                Alert(title: Text("Water Intake Not Logged"), message: Text("Please stop trying to fool me and just drink some water."), dismissButton: .default(Text("OK")))
+                Alert(title: Text("Water Intake Not Logged"), message: Text("Please ensure you are drinking water in the image."), dismissButton: .default(Text("OK")))
             }
         }
     }
 
-    /// ✅ Logs water intake only if the AI detects drinking
+    /// Logs water intake only if the AI detects drinking
     func logWaterIntake(_ success: Bool) {
+        print("[DEBUG] logWaterIntake called with success: \(success)")  // Added debug message to track the value
+
         if success {
             withAnimation {
                 waterIntake += 1
+                print("[DEBUG] Water intake logged: \(waterIntake)")
             }
         } else {
-            showErrorAlert = true  // ❌ Show alert if AI fails
+            print("[DEBUG] Drinking water not detected.")
+            showErrorAlert = true  // Show alert if AI fails
         }
     }
 
-    /// ✅ Resets daily intake at midnight (based on device timezone)
+    /// Resets daily intake at midnight (based on device timezone)
     func checkForDailyReset() {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
@@ -95,26 +100,22 @@ struct ContentView: View {
         let currentAppVersion = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "0"
         
         // Debugging: print both versions to check if they are correct
-        print("lastAppVersion:", lastAppVersion, "currentAppVersion:", currentAppVersion)
+        print("[DEBUG] lastAppVersion:", lastAppVersion, "currentAppVersion:", currentAppVersion)
         
         // This reset the counter when a new build is installed or app version changes
         if lastAppVersion != currentAppVersion {
-            print("App version has changed! Resetting water intake.")  // Added log to confirm the condition triggers
+            print("[DEBUG] App version has changed! Resetting water intake.")  // Added log to confirm the condition triggers
             waterIntake = 0
             lastUpdatedDate = today
             UserDefaults.standard.set(currentAppVersion, forKey: "lastAppVersion")
         } else {
-            print("App version hasn't changed.") // Added log to check if the version comparison is correct
+            print("[DEBUG] App version hasn't changed.") // Added log to check if the version comparison is correct
         }
 
-        // 🛠️ FOR TESTING: Uncomment the line below to always reset on app launch
-//         waterIntake = 0
-
         if lastUpdatedDate != today {
-            print("New day detected! Resetting water intake.")
+            print("[DEBUG] New day detected! Resetting water intake.")
             waterIntake = 0
             lastUpdatedDate = today
         }
     }
-
 }
