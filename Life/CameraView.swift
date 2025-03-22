@@ -4,7 +4,6 @@ import Vision
 
 struct CameraView: UIViewControllerRepresentable {
     @Binding var isPresented: Bool
-    @Binding var showErrorAlert: Bool  // Added binding for showErrorAlert
     var onPhotoTaken: (Bool) -> Void  // AI Detection Result
 
     class Coordinator: NSObject, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
@@ -55,9 +54,13 @@ struct CameraView: UIViewControllerRepresentable {
 
             if let handResults = request.results as? [VNHumanHandPoseObservation], !handResults.isEmpty {
                 if let hand = handResults.first {
-                    // Check proximity of hand to the nose
+                    // Hand detected, check proximity to the nose
                     self.checkHandProximityToNose(hand)
                 }
+            } else {
+                // No hands detected
+                print("[DEBUG] No hands detected.")
+                self.onPhotoTaken(false)  // Pass false if no hands detected
             }
         }
 
@@ -92,7 +95,6 @@ struct CameraView: UIViewControllerRepresentable {
             } else {
                 print("[DEBUG] Hand is not close to the nose. Not drinking.")
                 self.onPhotoTaken(false)  // Not drinking
-                self.showErrorAlert = true // Trigger the alert
             }
         }
     }

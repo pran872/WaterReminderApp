@@ -64,12 +64,23 @@ struct ContentView: View {
                 checkForDailyReset()
             }
             .sheet(isPresented: $isShowingCamera) {
-                CameraView(isPresented: $isShowingCamera, showErrorAlert: $showErrorAlert, onPhotoTaken: logWaterIntake)
+                CameraView(isPresented: $isShowingCamera, onPhotoTaken: logWaterIntake)
             }
 
             .alert(isPresented: $showErrorAlert) {
-                Alert(title: Text("Water Intake Not Logged"), message: Text("Please ensure you are drinking water in the image."), dismissButton: .default(Text("OK")))
+                            Alert(title: Text("Water Intake Not Logged"), message: Text("Please stop trying to fool me and just drink some water."), dismissButton: .default(Text("OK")))
             }
+            
+//            .alert(isPresented: $showErrorAlert) {
+//                Alert(
+//                    title: Text("Water Intake Not Logged"),
+//                    message: Text("Please ensure you are drinking water in the image."),
+//                    dismissButton: .default(Text("OK"), action: {
+//                        // Reset showErrorAlert after dismissing the alert
+//                        showErrorAlert = false
+//                    })
+//                )
+//            }
         }
     }
 
@@ -84,9 +95,17 @@ struct ContentView: View {
             }
         } else {
             print("[DEBUG] Drinking water not detected.")
-            showErrorAlert = true  // Show alert if AI fails
+
+            // Add a delay before triggering the alert
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                // Only trigger the alert if it's not already showing
+                if !showErrorAlert {
+                    showErrorAlert = true  // Show the alert if AI fails
+                }
+            }
         }
     }
+
 
     /// Resets daily intake at midnight (based on device timezone)
     func checkForDailyReset() {
@@ -111,7 +130,7 @@ struct ContentView: View {
         } else {
             print("[DEBUG] App version hasn't changed.") // Added log to check if the version comparison is correct
         }
-
+        waterIntake = 0
         if lastUpdatedDate != today {
             print("[DEBUG] New day detected! Resetting water intake.")
             waterIntake = 0
