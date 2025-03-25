@@ -5,6 +5,10 @@ struct ContentView: View {
     @AppStorage("waterIntake") private var waterIntake = 0
     @AppStorage("lastUpdatedDate") private var lastUpdatedDate = ""
     @AppStorage("lastWaterLogDate") private var lastWaterLogDate: Double = 0
+    
+    @AppStorage("noIgnoreStreak") private var noIgnoreStreak = 0
+    @AppStorage("highestReminderReachedToday") private var highestReminder = 0
+
 
     @State private var isShowingCamera = false
     @State private var showErrorAlert = false
@@ -62,6 +66,12 @@ struct ContentView: View {
                     .padding(.top, 10)
 
                 Spacer()
+                
+                Text("🛡️ No-Ignore Streak: \(noIgnoreStreak)")
+                    .font(.footnote)
+                    .foregroundColor(.white.opacity(0.7))
+                
+                Spacer()
 
                 if lastWaterLogDate > 0 {
                     let lastLogged = Date(timeIntervalSince1970: lastWaterLogDate)
@@ -102,6 +112,7 @@ struct ContentView: View {
                 print("[DEBUG] Water intake logged: \(waterIntake)")
                 
                 ReminderManager.shared.scheduleHydrationReminders(from: Date())
+                updateHighestReminderToday(from: Date())
             }
         } else {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
@@ -122,6 +133,39 @@ struct ContentView: View {
             print("[DEBUG] New day detected! Resetting water intake.")
             waterIntake = 0
             lastUpdatedDate = today
+            updateNoIgnoreStreak()
         }
+    }
+    
+    func updateHighestReminderToday(from date: Date) {
+        let intervals = [120, 135, 145, 150, 153]
+        let elapsedMinutes = Int(date.timeIntervalSince1970 - lastWaterLogDate) / 60
+        print("[DEBUG] TimeIntervalSince1970", date.timeIntervalSince1970)
+        print("[DEBUG] Last Water Log Date", lastWaterLogDate)
+        print("[DEBUG] Elapsed minutes:", elapsedMinutes)
+
+        let estimatedLevel = intervals.lastIndex(where: { elapsedMinutes >= $0 }) ?? -1
+        print("[DEBUG] EstimatedLevel: \(estimatedLevel), highestReminder: \(highestReminder)")
+        
+        if estimatedLevel > highestReminder {
+            highestReminder = estimatedLevel
+            print("[DEBUG] highestReminderReachedToday updated to:", estimatedLevel)
+        } else {
+            print("[DEBUG] Skipped updating highestReminderReachedToday — existing:", highestReminder, "new:", estimatedLevel)
+        }
+    }
+    
+    func updateNoIgnoreStreak() {
+//        Called at the start of the day only
+        if highestReminder < 4 {
+            noIgnoreStreak += 1
+            print("[DEBUG] ✅ No-ignore streak increased to:", noIgnoreStreak)
+        } else {
+            noIgnoreStreak = 0
+            print("[DEBUG] ❌ No-ignore streak reset")
+        }
+        
+        highestReminder = 0
+        print("[DEBUG] Reset highestReminderReachedToday to 0")
     }
 }
