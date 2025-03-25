@@ -1,14 +1,12 @@
-//
-//  LifeApp.swift
-//  Life
-//
-//  Created by Pranathi Poojary on 20/03/2025.
-//
-
 import SwiftUI
 
 @main
 struct LifeApp: App {
+    init() {
+        ReminderManager.shared.requestPermission()
+        ReminderManager.shared.scheduleDailyReminders()
+    }
+
     var body: some Scene {
         WindowGroup {
             ContentView()

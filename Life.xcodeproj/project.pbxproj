@@ -34,9 +34,22 @@
 		5AD23F6C2D8C6C3D00D6E7E5 /* LifeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LifeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		5A4542042D9058F2002D0C39 /* Exceptions for "Life" folder in "Life" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 5AD23F502D8C6C3B00D6E7E5 /* Life */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		5AD23F532D8C6C3B00D6E7E5 /* Life */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				5A4542042D9058F2002D0C39 /* Exceptions for "Life" folder in "Life" target */,
+			);
 			path = Life;
 			sourceTree = "<group>";
 		};
@@ -411,6 +424,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Life/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "This app uses the camera to verify water intake.";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
@@ -452,6 +466,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Life/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "This app uses the camera to verify water intake.";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
