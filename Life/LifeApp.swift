@@ -4,7 +4,7 @@ import SwiftUI
 struct LifeApp: App {
     init() {
         ReminderManager.shared.requestPermission()
-        ReminderManager.shared.scheduleDailyReminders()
+//        ReminderManager.shared.scheduleHydrationReminders(from: Date())
     }
 
     var body: some Scene {

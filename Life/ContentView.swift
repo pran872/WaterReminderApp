@@ -100,6 +100,8 @@ struct ContentView: View {
                 waterIntake += 1
                 lastWaterLogDate = Date().timeIntervalSince1970
                 print("[DEBUG] Water intake logged: \(waterIntake)")
+                
+                ReminderManager.shared.scheduleHydrationReminders(from: Date())
             }
         } else {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
