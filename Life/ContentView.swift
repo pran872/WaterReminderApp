@@ -2,6 +2,8 @@ import SwiftUI
 import AVFoundation
 
 struct ContentView: View {
+    @Environment(\.scenePhase) private var scenePhase
+
     @AppStorage("waterIntake") private var waterIntake = 0
     @AppStorage("lastUpdatedDate") private var lastUpdatedDate = ""
     @AppStorage("lastWaterLogDate") private var lastWaterLogDate: Double = 0
@@ -79,6 +81,12 @@ struct ContentView: View {
             .onAppear {
                 checkForDailyReset()
             }
+            .onChange(of: scenePhase) { _, newPhase in
+                if newPhase == .active {
+                    print("[DEBUG] App is back in foreground")
+                    checkRemindersPresent()
+                }
+            }
             .sheet(isPresented: $isShowingCamera) {
                 CameraView(isPresented: $isShowingCamera, onPhotoTaken: logWaterIntake)
             }
@@ -122,6 +130,23 @@ struct ContentView: View {
             print("[DEBUG] New day detected! Resetting water intake.")
             waterIntake = 0
             lastUpdatedDate = today
+        }
+    }
+    
+    func checkRemindersPresent() {
+        UNUserNotificationCenter.current().getPendingNotificationRequests { requests in
+            let hasHydrationReminders = requests.contains { $0.identifier.starts(with: "hydration_reminder_") }
+
+            if !hasHydrationReminders {
+                let offset = (HydrationConstants.baseReminderDelay * 60) - 2 // (2*60) - 2 = 118 minutes
+                let almostTwoHoursAgo = Calendar.current.date(byAdding: .minute, value: -offset, to: Date())!
+                ReminderManager.shared.scheduleHydrationReminders(from: almostTwoHoursAgo)
+
+                print("[DEBUG] ⏱ No hydration reminders found. Triggering reminder in 2 minutes from now: ", Date())
+                print("[DEBUG] \(-offset)")
+            } else {
+                print("[DEBUG] ✅ Hydration reminders already scheduled.")
+            }
         }
     }
 }

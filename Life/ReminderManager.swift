@@ -19,18 +19,25 @@ class ReminderManager {
         
         let calendar = Calendar.current
         let hour = calendar.component(.hour, from: date)
-        if hour >= 21 {
-                print("[DEBUG] It's after 9PM. No reminders will be scheduled tonight.")
-                return
+        let earliestReminderHour = HydrationConstants.reminderStartHour - HydrationConstants.baseReminderDelay // 8AM
+        
+        if hour >= (HydrationConstants.reminderEndHour - HydrationConstants.baseReminderDelay) { // if hour >= 21
+            print("[DEBUG] It's after 9PM. No reminders will be scheduled tonight.")
+            let calendar = Calendar.current
+            let tomorrow = calendar.date(byAdding: .day, value: 1, to: date) ?? date
+            let adjustedStart = calendar.date(bySettingHour: earliestReminderHour, minute: 0, second: 0, of: tomorrow) ?? tomorrow
+            scheduleHydrationReminders(from: adjustedStart)
+            return
         }
-        if hour < 8 {
-                print("[DEBUG] It's before 8AM. No reminders will be scheduled until 10AM.")
-                return
+        if hour < earliestReminderHour {
+            print("[DEBUG] It's before 8AM. No reminders will be scheduled until 10AM.")
+            let adjustedStart = Calendar.current.date(
+                bySettingHour: earliestReminderHour, minute: 0, second: 0, of: date
+            ) ?? date
+            scheduleHydrationReminders(from: adjustedStart)
+            return
         }
         
-        
-        let intervals: [Int] = [120, 135, 145, 150, 153] // 2h, +15m, +10m, +5m, +3m
-//        let intervals: [Int] = [1, 2, 3, 4, 240] // 2h, +15m, +10m, +5m, +3m
         let titles = [
             "💧 Time to drink water",
             "💧 Gentle Reminder",
@@ -39,10 +46,10 @@ class ReminderManager {
             "💧 Final hydration alert"
         ]
         
-        for (index, offset) in intervals.enumerated() {
+        for (index, offset) in HydrationConstants.intervals.enumerated() {
             if let reminderDate = calendar.date(byAdding: .minute, value: offset, to: date) {
                 let reminderHour = calendar.component(.hour, from: reminderDate)
-                if reminderHour >= 10 && reminderHour < 23 {
+                if reminderHour >= HydrationConstants.reminderStartHour && reminderHour < HydrationConstants.reminderEndHour {
                     let content = UNMutableNotificationContent()
                     content.title = titles[index]
                     content.body = "You haven't logged water yet. Stay hydrated!"
