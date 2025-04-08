@@ -9,6 +9,7 @@ struct ContentView: View {
     @AppStorage("lastWaterLogDate") private var lastWaterLogDate: Double = 0
 
     @State private var isShowingCamera = false
+    @State private var isShowingSettings = false
     @State private var showErrorAlert = false
 
     let dailyGoal = 10
@@ -25,7 +26,24 @@ struct ContentView: View {
                 endPoint: .bottomTrailing
             )
             .edgesIgnoringSafeArea(.all)
-
+            
+            VStack {
+                    HStack {
+                        Spacer()
+                        Button(action: { isShowingSettings = true }) {
+                            Image(systemName: "gearshape")
+                                .font(.title2)
+                                .padding(12)
+//                                .background(Color.white.opacity(0.2))
+//                                .clipShape(Circle())
+                                .foregroundColor(.white)
+                        }
+                        .padding(.top, 5)
+                        .padding(.trailing, 10)
+                    }
+                    Spacer() // Pushes the button to the top
+            }
+            
             VStack {
                 Spacer()
 
@@ -75,6 +93,25 @@ struct ContentView: View {
                         .font(.footnote)
                         .foregroundColor(.white.opacity(0.5))
                 }
+                
+//                Button("⚙️") {
+//                    isShowingSettings = true
+//                }
+//                .padding(.top, 10)
+//                .font(.footnote)
+//                .foregroundColor(.white)
+//                .background(Color.blue.opacity(0.8))
+//                .cornerRadius(8)
+//                Button(action: { isShowingSettings = true }) {
+//                    Text("⚙️")
+//                        .padding(.horizontal, 16)
+//                        .padding(.vertical, 8)
+//                        .background(Color.white.opacity(0.2))
+//                        .cornerRadius(10)
+//                        .foregroundColor(.white)
+//                }
+
+
 
                 Spacer()
             }
@@ -89,6 +126,9 @@ struct ContentView: View {
             }
             .sheet(isPresented: $isShowingCamera) {
                 CameraView(isPresented: $isShowingCamera, onPhotoTaken: logWaterIntake)
+            }
+            .sheet(isPresented: $isShowingSettings) {
+                ReminderSettingsView()
             }
             .alert(isPresented: $showErrorAlert) {
                 Alert(

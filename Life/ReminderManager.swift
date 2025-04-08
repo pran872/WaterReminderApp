@@ -39,11 +39,15 @@ class ReminderManager {
         }
         
         let titles = [
-            "💧 Time to drink water",
-            "💧 Gentle Reminder",
-            "💧 Still waiting...",
-            "💧 It's really time now",
-            "💧 Final hydration alert"
+            "💧 Time to drink water",             // 120 min
+            "💧 Gentle reminder",                // 135
+            "💧 Still waiting...",               // 145
+            "💧 It’s really time now",          // 150
+            "💧 Final hydration alert",         // 153
+            "💧 Seriously?",                     // 156
+            "💧 Your body depends on you",          // 158
+            "💧 This is getting personal",      // 159
+            "💧 I'm not mad, just dehydrated"   // 160
         ]
         
         for (index, offset) in HydrationConstants.intervals.enumerated() {
