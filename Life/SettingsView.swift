@@ -72,6 +72,14 @@ private extension ReminderSettingsView {
     var followUpRemindersToggleSection: some View {
         Section(header: Text("FOLLOW-UP REMINDERS")) {
             Toggle("Use Custom Intervals", isOn: $customIntervalsEnabled)
+                .onChange(of: customIntervalsEnabled) { isOn in
+                        if isOn {
+                            // Reset to fresh interval when toggled ON
+                            customIntervals = [5]
+                            intervalInputs = ["5"]
+                            isIntervalValidationErrorDisplayed = false
+                        }
+                    }
         }
     }
     
