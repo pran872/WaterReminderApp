@@ -2,15 +2,14 @@ import SwiftUI
 
 struct ReminderSettingsView: View {
     @AppStorage("customIntervalsEnabled") private var customIntervalsEnabled = false
+    @AppStorage("reminderStartHour") private var reminderStartHour = HydrationConstants.defaultReminderStartHour
+    @AppStorage("reminderEndHour") private var reminderEndHour = HydrationConstants.defaultReminderEndHour
     
     @State private var customIntervals: [Int] = [5]
     @State private var intervalInputs: [String] = ["5"]
     @State private var isIntervalValidationErrorDisplayed = false
     @State private var isWindowValidationErrorDisplayed = false
     @FocusState private var focusedIntervalIndex: Int?
-    
-    @State private var reminderStartHour = 10
-    @State private var reminderEndHour = 23
     
     private let maxIntervalsCount = 10
     
@@ -24,7 +23,7 @@ struct ReminderSettingsView: View {
                 }
                 resetSettingsSection
             }
-            .navigationTitle("Reminder Settings")
+            .navigationTitle("Settings")
             .toolbar {
                 ToolbarItemGroup(placement: .keyboard) {
                     Spacer()
@@ -46,7 +45,7 @@ private extension ReminderSettingsView {
             footer: Text("Reminders will only be sent between these times.")
         ) {
             DatePicker(
-                "Start Time",
+                "Start Hour",
                 selection: Binding(
                     get: { dateForHour(reminderStartHour) },
                     set: { reminderStartHour = Calendar.current.component(.hour, from: $0); validateWindowHours() }
@@ -54,7 +53,7 @@ private extension ReminderSettingsView {
                 displayedComponents: .hourAndMinute
             )
             DatePicker(
-                "End Time",
+                "End Hour",
                 selection: Binding(
                     get: { dateForHour(reminderEndHour) },
                     set: { reminderEndHour = Calendar.current.component(.hour, from: $0); validateWindowHours() }

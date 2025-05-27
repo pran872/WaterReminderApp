@@ -12,7 +12,7 @@ struct ContentView: View {
     @State private var isShowingSettings = false
     @State private var showErrorAlert = false
 
-    let dailyGoal = 10
+    let dailyGoal = 10 // Irrelevant goal - just means that 10 drinks required for a full circle log in the UI
 
     var progress: Double {
         return min(Double(waterIntake % dailyGoal) / Double(dailyGoal), 1.0)
@@ -27,22 +27,22 @@ struct ContentView: View {
             )
             .edgesIgnoringSafeArea(.all)
             
-            VStack {
-                    HStack {
-                        Spacer()
-                        Button(action: { isShowingSettings = true }) {
-                            Image(systemName: "gearshape")
-                                .font(.title2)
-                                .padding(12)
-//                                .background(Color.white.opacity(0.2))
-//                                .clipShape(Circle())
-                                .foregroundColor(.white)
-                        }
-                        .padding(.top, 5)
-                        .padding(.trailing, 10)
-                    }
-                    Spacer() // Pushes the button to the top
-            }
+//            VStack {
+//                    HStack {
+//                        Spacer()
+//                        Button(action: { isShowingSettings = true }) {
+//                            Image(systemName: "gearshape")
+//                                .font(.title2)
+//                                .padding(12)
+////                                .background(Color.white.opacity(0.2))
+////                                .clipShape(Circle())
+//                                .foregroundColor(.white)
+//                        }
+//                        .padding(.top, 5)
+//                        .padding(.trailing, 10)
+//                    }
+//                    Spacer() // Pushes button to top
+//            }
             
             VStack {
                 Spacer()
@@ -166,6 +166,13 @@ struct ContentView: View {
         formatter.timeZone = TimeZone.current
 
         let today = formatter.string(from: Date())
+        let date = Date()
+        let calendar = Calendar.current
+        let hour = calendar.component(.hour, from: date)
+        let minutes = calendar.component(.minute, from: date)
+        print("... Date", formatter.string(from: date))
+        print("... hour", hour)
+        print("... minutes", minutes)
         if lastUpdatedDate != today {
             print("[DEBUG] New day detected! Resetting water intake.")
             waterIntake = 0
@@ -178,12 +185,16 @@ struct ContentView: View {
             let hasHydrationReminders = requests.contains { $0.identifier.starts(with: "hydration_reminder_") }
 
             if !hasHydrationReminders {
+                let formatter = DateFormatter()
+                formatter.dateFormat = "yyyy-MM-dd HH:mm:ss ZZZZ"
+                formatter.timeZone = TimeZone.current
+                
                 let offset = (HydrationConstants.baseReminderDelay * 60) - 2 // (2*60) - 2 = 118 minutes
                 let almostTwoHoursAgo = Calendar.current.date(byAdding: .minute, value: -offset, to: Date())!
                 ReminderManager.shared.scheduleHydrationReminders(from: almostTwoHoursAgo)
+                print("[DEBUG] Almost 2 hours ago:", almostTwoHoursAgo)
 
-                print("[DEBUG] ⏱ No hydration reminders found. Triggering reminder in 2 minutes from now: ", Date())
-                print("[DEBUG] \(-offset)")
+                print("[DEBUG] ⏱ No hydration reminders found. Triggering reminder in 2 minutes from now: ", formatter.string(from: Date()))
             } else {
                 print("[DEBUG] ✅ Hydration reminders already scheduled.")
             }
