@@ -29,38 +29,39 @@
 
 /* Begin PBXFileReference section */
 		5A0E214B2D8C7A4600065A71 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.0.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
-		5AD23F512D8C6C3B00D6E7E5 /* Life.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Life.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		5AD23F622D8C6C3D00D6E7E5 /* LifeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LifeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		5AD23F6C2D8C6C3D00D6E7E5 /* LifeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LifeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		5AD23F512D8C6C3B00D6E7E5 /* WaterReminderDrink.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WaterReminderDrink.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		5AD23F622D8C6C3D00D6E7E5 /* WaterReminderDrinkTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WaterReminderDrinkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		5AD23F6C2D8C6C3D00D6E7E5 /* WaterReminderDrinkUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WaterReminderDrinkUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		5A4542042D9058F2002D0C39 /* Exceptions for "Life" folder in "Life" target */ = {
+		5A332C652DE6279E007D2958 /* Exceptions for "Water Reminder Drink" folder in "WaterReminderDrink" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
 			);
-			target = 5AD23F502D8C6C3B00D6E7E5 /* Life */;
+			target = 5AD23F502D8C6C3B00D6E7E5 /* WaterReminderDrink */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		5AD23F532D8C6C3B00D6E7E5 /* Life */ = {
+		5AD23F532D8C6C3B00D6E7E5 /* Water Reminder Drink */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				5A4542042D9058F2002D0C39 /* Exceptions for "Life" folder in "Life" target */,
+				5A332C652DE6279E007D2958 /* Exceptions for "Water Reminder Drink" folder in "WaterReminderDrink" target */,
 			);
-			path = Life;
+			name = "Water Reminder Drink";
+			path = "/Users/pranathipoojary/Projects/water_reminder/WaterReminderDrink/Water Reminder Drink";
+			sourceTree = "<absolute>";
+		};
+		5AD23F652D8C6C3D00D6E7E5 /* Water Reminder Drink Tests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "Water Reminder Drink Tests";
 			sourceTree = "<group>";
 		};
-		5AD23F652D8C6C3D00D6E7E5 /* LifeTests */ = {
+		5AD23F6F2D8C6C3D00D6E7E5 /* Water Reminder Drink UI Tests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = LifeTests;
-			sourceTree = "<group>";
-		};
-		5AD23F6F2D8C6C3D00D6E7E5 /* LifeUITests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = LifeUITests;
+			path = "Water Reminder Drink UI Tests";
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -97,14 +98,15 @@
 				5A0E214B2D8C7A4600065A71 /* UIKit.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
+			path = /Users/pranathipoojary/Projects/water_reminder/WaterReminderDrink;
+			sourceTree = "<absolute>";
 		};
 		5AD23F482D8C6C3B00D6E7E5 = {
 			isa = PBXGroup;
 			children = (
-				5AD23F532D8C6C3B00D6E7E5 /* Life */,
-				5AD23F652D8C6C3D00D6E7E5 /* LifeTests */,
-				5AD23F6F2D8C6C3D00D6E7E5 /* LifeUITests */,
+				5AD23F532D8C6C3B00D6E7E5 /* Water Reminder Drink */,
+				5AD23F652D8C6C3D00D6E7E5 /* Water Reminder Drink Tests */,
+				5AD23F6F2D8C6C3D00D6E7E5 /* Water Reminder Drink UI Tests */,
 				5A0E214A2D8C7A4600065A71 /* Frameworks */,
 				5AD23F522D8C6C3B00D6E7E5 /* Products */,
 			);
@@ -113,9 +115,9 @@
 		5AD23F522D8C6C3B00D6E7E5 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				5AD23F512D8C6C3B00D6E7E5 /* Life.app */,
-				5AD23F622D8C6C3D00D6E7E5 /* LifeTests.xctest */,
-				5AD23F6C2D8C6C3D00D6E7E5 /* LifeUITests.xctest */,
+				5AD23F512D8C6C3B00D6E7E5 /* WaterReminderDrink.app */,
+				5AD23F622D8C6C3D00D6E7E5 /* WaterReminderDrinkTests.xctest */,
+				5AD23F6C2D8C6C3D00D6E7E5 /* WaterReminderDrinkUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -123,9 +125,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		5AD23F502D8C6C3B00D6E7E5 /* Life */ = {
+		5AD23F502D8C6C3B00D6E7E5 /* WaterReminderDrink */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 5AD23F762D8C6C3D00D6E7E5 /* Build configuration list for PBXNativeTarget "Life" */;
+			buildConfigurationList = 5AD23F762D8C6C3D00D6E7E5 /* Build configuration list for PBXNativeTarget "WaterReminderDrink" */;
 			buildPhases = (
 				5AD23F4D2D8C6C3B00D6E7E5 /* Sources */,
 				5AD23F4E2D8C6C3B00D6E7E5 /* Frameworks */,
@@ -136,18 +138,18 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				5AD23F532D8C6C3B00D6E7E5 /* Life */,
+				5AD23F532D8C6C3B00D6E7E5 /* Water Reminder Drink */,
 			);
-			name = Life;
+			name = WaterReminderDrink;
 			packageProductDependencies = (
 			);
 			productName = Life;
-			productReference = 5AD23F512D8C6C3B00D6E7E5 /* Life.app */;
+			productReference = 5AD23F512D8C6C3B00D6E7E5 /* WaterReminderDrink.app */;
 			productType = "com.apple.product-type.application";
 		};
-		5AD23F612D8C6C3D00D6E7E5 /* LifeTests */ = {
+		5AD23F612D8C6C3D00D6E7E5 /* WaterReminderDrinkTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 5AD23F792D8C6C3D00D6E7E5 /* Build configuration list for PBXNativeTarget "LifeTests" */;
+			buildConfigurationList = 5AD23F792D8C6C3D00D6E7E5 /* Build configuration list for PBXNativeTarget "WaterReminderDrinkTests" */;
 			buildPhases = (
 				5AD23F5E2D8C6C3D00D6E7E5 /* Sources */,
 				5AD23F5F2D8C6C3D00D6E7E5 /* Frameworks */,
@@ -159,18 +161,18 @@
 				5AD23F642D8C6C3D00D6E7E5 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				5AD23F652D8C6C3D00D6E7E5 /* LifeTests */,
+				5AD23F652D8C6C3D00D6E7E5 /* Water Reminder Drink Tests */,
 			);
-			name = LifeTests;
+			name = WaterReminderDrinkTests;
 			packageProductDependencies = (
 			);
 			productName = LifeTests;
-			productReference = 5AD23F622D8C6C3D00D6E7E5 /* LifeTests.xctest */;
+			productReference = 5AD23F622D8C6C3D00D6E7E5 /* WaterReminderDrinkTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		5AD23F6B2D8C6C3D00D6E7E5 /* LifeUITests */ = {
+		5AD23F6B2D8C6C3D00D6E7E5 /* WaterReminderDrinkUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 5AD23F7C2D8C6C3D00D6E7E5 /* Build configuration list for PBXNativeTarget "LifeUITests" */;
+			buildConfigurationList = 5AD23F7C2D8C6C3D00D6E7E5 /* Build configuration list for PBXNativeTarget "WaterReminderDrinkUITests" */;
 			buildPhases = (
 				5AD23F682D8C6C3D00D6E7E5 /* Sources */,
 				5AD23F692D8C6C3D00D6E7E5 /* Frameworks */,
@@ -182,13 +184,13 @@
 				5AD23F6E2D8C6C3D00D6E7E5 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				5AD23F6F2D8C6C3D00D6E7E5 /* LifeUITests */,
+				5AD23F6F2D8C6C3D00D6E7E5 /* Water Reminder Drink UI Tests */,
 			);
-			name = LifeUITests;
+			name = WaterReminderDrinkUITests;
 			packageProductDependencies = (
 			);
 			productName = LifeUITests;
-			productReference = 5AD23F6C2D8C6C3D00D6E7E5 /* LifeUITests.xctest */;
+			productReference = 5AD23F6C2D8C6C3D00D6E7E5 /* WaterReminderDrinkUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -214,7 +216,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 5AD23F4C2D8C6C3B00D6E7E5 /* Build configuration list for PBXProject "Life" */;
+			buildConfigurationList = 5AD23F4C2D8C6C3B00D6E7E5 /* Build configuration list for PBXProject "WaterReminderDrink" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -228,9 +230,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				5AD23F502D8C6C3B00D6E7E5 /* Life */,
-				5AD23F612D8C6C3D00D6E7E5 /* LifeTests */,
-				5AD23F6B2D8C6C3D00D6E7E5 /* LifeUITests */,
+				5AD23F502D8C6C3B00D6E7E5 /* WaterReminderDrink */,
+				5AD23F612D8C6C3D00D6E7E5 /* WaterReminderDrinkTests */,
+				5AD23F6B2D8C6C3D00D6E7E5 /* WaterReminderDrinkUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -286,12 +288,12 @@
 /* Begin PBXTargetDependency section */
 		5AD23F642D8C6C3D00D6E7E5 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 5AD23F502D8C6C3B00D6E7E5 /* Life */;
+			target = 5AD23F502D8C6C3B00D6E7E5 /* WaterReminderDrink */;
 			targetProxy = 5AD23F632D8C6C3D00D6E7E5 /* PBXContainerItemProxy */;
 		};
 		5AD23F6E2D8C6C3D00D6E7E5 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 5AD23F502D8C6C3B00D6E7E5 /* Life */;
+			target = 5AD23F502D8C6C3B00D6E7E5 /* WaterReminderDrink */;
 			targetProxy = 5AD23F6D2D8C6C3D00D6E7E5 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -416,15 +418,17 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = Life/Life.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "Water Reminder Drink/WaterReminderDrink.entitlements";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Life/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Water Reminder Drink/Preview Content\"";
 				DEVELOPMENT_TEAM = 26G8PTAW44;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Life/Info.plist;
+				INFOPLIST_FILE = "Water Reminder Drink/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Water Reminder Drink";
 				INFOPLIST_KEY_NSCameraUsageDescription = "This app uses the camera to verify water intake.";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
@@ -442,8 +446,8 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.5;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.Pranathi.Life;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.Pranathi.WaterReminderDrink;
+				PRODUCT_NAME = WaterReminderDrink;
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -458,15 +462,17 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = Life/Life.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "Water Reminder Drink/WaterReminderDrink.entitlements";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Life/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Water Reminder Drink/Preview Content\"";
 				DEVELOPMENT_TEAM = 26G8PTAW44;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Life/Info.plist;
+				INFOPLIST_FILE = "Water Reminder Drink/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Water Reminder Drink";
 				INFOPLIST_KEY_NSCameraUsageDescription = "This app uses the camera to verify water intake.";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
@@ -483,8 +489,8 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.5;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.Pranathi.Life;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.Pranathi.WaterReminderDrink;
+				PRODUCT_NAME = WaterReminderDrink;
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -504,7 +510,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				MACOSX_DEPLOYMENT_TARGET = 14.5;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.Pranathi.LifeTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Pranathi.WaterReminderDrinkTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
@@ -526,7 +532,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				MACOSX_DEPLOYMENT_TARGET = 14.5;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.Pranathi.LifeTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Pranathi.WaterReminderDrinkTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
@@ -583,7 +589,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		5AD23F4C2D8C6C3B00D6E7E5 /* Build configuration list for PBXProject "Life" */ = {
+		5AD23F4C2D8C6C3B00D6E7E5 /* Build configuration list for PBXProject "WaterReminderDrink" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				5AD23F742D8C6C3D00D6E7E5 /* Debug */,
@@ -592,7 +598,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		5AD23F762D8C6C3D00D6E7E5 /* Build configuration list for PBXNativeTarget "Life" */ = {
+		5AD23F762D8C6C3D00D6E7E5 /* Build configuration list for PBXNativeTarget "WaterReminderDrink" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				5AD23F772D8C6C3D00D6E7E5 /* Debug */,
@@ -601,7 +607,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		5AD23F792D8C6C3D00D6E7E5 /* Build configuration list for PBXNativeTarget "LifeTests" */ = {
+		5AD23F792D8C6C3D00D6E7E5 /* Build configuration list for PBXNativeTarget "WaterReminderDrinkTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				5AD23F7A2D8C6C3D00D6E7E5 /* Debug */,
@@ -610,7 +616,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		5AD23F7C2D8C6C3D00D6E7E5 /* Build configuration list for PBXNativeTarget "LifeUITests" */ = {
+		5AD23F7C2D8C6C3D00D6E7E5 /* Build configuration list for PBXNativeTarget "WaterReminderDrinkUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				5AD23F7D2D8C6C3D00D6E7E5 /* Debug */,
